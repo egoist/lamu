@@ -25,6 +25,7 @@ class Lamu {
     lineSpacing = 0,
     separator = '::',
     table = true,
+    justify = true,
     logger = logUpdate
   } = {}) {
     this.messages = []
@@ -32,6 +33,7 @@ class Lamu {
     this.lineSpacing = lineSpacing
     this.separator = separator
     this.table = table
+    this.justify = justify
     this.logger = logger
   }
 
@@ -94,7 +96,7 @@ class Lamu {
       return [
         message[0],
         message[1],
-        this.table ? wrapMessage(message, maxLabelWidth) : message[2]
+        this.table ? wrapMessage(message, maxLabelWidth, this.justify) : message[2]
       ]
     })
     if (this.table) {
@@ -115,8 +117,32 @@ export default options => {
   return new Lamu(options)
 }
 
-function wrapMessage(message, maxLabelWidth) {
+function wrapMessage(message, maxLabelWidth, justify) {
   const offsetWidth = maxLabelWidth + getWidth(message[1]) + 4
   const width = process.stdout.columns - offsetWidth
-  return indent(wrap(message[2], width * 0.9), offsetWidth).trim()
+  const wrapped = justify ? wrap(justifyMessage(message[2], width * 0.9), width) : wrap(message[2], width * 0.9);
+  return indent(wrapped, offsetWidth).trim();
+}
+
+function justifyMessage(message, len) {
+  const words = message.split(/\s+/);
+  let lines = [];
+  let lastLine = words.reduce(function(line, word) {
+    if (line) {
+      if (line.length + word.length + 1 <= len)
+        return line + ' ' + word;
+      lines.push(line);
+    }
+    return word;
+  });
+  lines = lines.map(function(line) {
+    if (line.indexOf(' ') >= 0)
+      for (let lineLen = line.length; lineLen < len; )
+        line = line.replace(/ +/g, function(spaces) {
+          return spaces + (lineLen++ < len ? ' ' : '');
+        });
+    return line;
+  });
+  lastLine && lines.push(lastLine);
+  return lines.join('\n');
 }
