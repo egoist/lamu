@@ -120,7 +120,7 @@ setTimeout(() => {
 
 ## API
 
-### Lamu({lineSpacing = 0, separator = '::'})
+### Lamu({lineSpacing, separator, align})
 
 #### lineSpacing
 
@@ -136,6 +136,13 @@ Default: `"::"`
 
 Use a custom separator.
 
+#### align
+
+Type: `string`<br>
+Default: `"right"`
+
+Align direction for label.
+
 ### lamu.log({label, color, text})
 
 Log the logs to console, returns the id of least recently added log.
@@ -149,7 +156,7 @@ The label of the log, you can use some built-in label like `success` `error` `wa
 #### color
 
 Type: `string`<br>
-Default: `dim`
+Default: `"dim"`
 
 The name of [chalk](https://github.com/chalk/chalk#styles) styles, apply to label text.
 
