@@ -115,6 +115,8 @@ Use a custom separator.
 
 ### lamu.log({label, color, text})
 
+Log the logs to console, returns the id of least recently added log.
+
 #### label
 
 Type: `string`
@@ -133,6 +135,10 @@ The name of [chalk](https://github.com/chalk/chalk#styles) styles, apply to labe
 Type: `string`
 
 The text of the log.
+
+### lamu.update(id, data)
+
+Update an exsiting log by id, id is returned by `lamu.log`, the usage of `data` is the same as in `lamu.log(data)`
 
 ## Contributing
 
