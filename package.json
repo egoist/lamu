@@ -1,7 +1,7 @@
 {
   "name": "lamu",
   "version": "0.0.0",
-  "description": "Impressive logger utility.",
+  "description": "Impressive terminal logger",
   "license": "MIT",
   "repository": "egoist/lamu",
   "author": {
