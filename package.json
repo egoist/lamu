@@ -13,9 +13,8 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "eslint src/*.js",
-    "build": "bili",
-    "example": "npm run build && node example"
+    "test": "eslint src/*.js && npm run build",
+    "build": "bili"
   },
   "files": [
     "dist"
