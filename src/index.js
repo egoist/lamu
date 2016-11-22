@@ -4,6 +4,7 @@ import logUpdate from 'log-update'
 import indent from 'indent-string'
 import wrap from 'wrap-ansi'
 import getWidth from 'string-width'
+import stripAnsi from 'strip-ansi'
 
 const defaultPatterns = {
   error: 'red',
@@ -54,19 +55,22 @@ class Lamu {
     text,
     color
   } = {}) {
+    const current = this.messages[index]
+    label = label || current[0]
+
     let coloredLabel
     if (color) {
+      label = stripAnsi(label)
       coloredLabel = chalk[color](label)
     } else if (defaultPatterns[label]) {
+      label = stripAnsi(label)
       coloredLabel = chalk[defaultPatterns[label]](label)
     } else {
       coloredLabel = chalk.dim(label)
     }
 
-    const current = this.messages[index]
-
     this.messages[index] = [
-      label ? coloredLabel : current[0],
+      (label || color) ? coloredLabel : current[0],
       chalk.dim(this.separator),
       text || current[2]
     ]

@@ -95,6 +95,29 @@ lamu.log({label: 'warning', text: 'goodbye world'})
 ```
 <img src="./media/preview-4.png" alt="separator" width="600">
 
+### Update exising log
+
+```js
+const lamu = require('lamu')({
+  lineSpacing: 1
+})
+
+lamu.log({label: 'info', text: 'hello world'})
+
+const log = lamu.log({
+  label: 'download', 
+  text: `please wait...`, 
+  color: 'yellow'}
+)
+
+lamu.log({label: 'warning', text: 'goodbye world'})
+
+setTimeout(() => {
+  lamu.update(log, {text: 'done!', color: 'green'})
+}, 1000)
+```
+<img src="./media/preview-5.gif" alt="update" width="600">
+
 ## API
 
 ### Lamu({lineSpacing = 0, separator = '::'})
