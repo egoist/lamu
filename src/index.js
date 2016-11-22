@@ -136,11 +136,14 @@ function justifyMessage(message, len) {
     return word;
   });
   lines = lines.map(function(line) {
-    if (line.indexOf(' ') >= 0)
-      for (let lineLen = line.length; lineLen < len; )
+    if (line.indexOf(' ') >= 0){
+      let lineLen = line.length;
+      while(lineLen < len){
         line = line.replace(/ +/g, function(spaces) {
           return spaces + (lineLen++ < len ? ' ' : '');
         });
+      }
+    }
     return line;
   });
   lastLine && lines.push(lastLine);
