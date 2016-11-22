@@ -44,7 +44,7 @@ lamu.log({
 // only the options are changed:
 const lamu = require('lamu')({table: false})
 
-// the reset is the same as default example
+// the rest is the same as default example
 // node examples/old
 ```
 
@@ -95,7 +95,7 @@ lamu.log({label: 'warning', text: 'goodbye world'})
 ```
 <img src="./media/preview-4.png" alt="separator" width="600">
 
-### Update exising log
+### Update existing log
 
 ```js
 const lamu = require('lamu')({
