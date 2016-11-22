@@ -120,32 +120,33 @@ export default options => {
 function wrapMessage(message, maxLabelWidth, justify) {
   const offsetWidth = maxLabelWidth + getWidth(message[1]) + 4
   const width = process.stdout.columns - offsetWidth
-  const wrapped = justify ? wrap(justifyMessage(message[2], width * 0.9), width) : wrap(message[2], width * 0.9);
-  return indent(wrapped, offsetWidth).trim();
+  const wrapped = justify ? wrap(justifyMessage(message[2], width * 0.9), width) : wrap(message[2], width * 0.9)
+  return indent(wrapped, offsetWidth).trim()
 }
 
 function justifyMessage(message, len) {
-  const words = message.split(/\s+/);
-  let lines = [];
-  let lastLine = words.reduce(function(line, word) {
+  const words = message.split(/\s+/)
+  let lines = []
+  const lastLine = words.reduce((line, word) => {
     if (line) {
-      if (line.length + word.length + 1 <= len)
-        return line + ' ' + word;
-      lines.push(line);
+      if (line.length + word.length + 1 <= len) {
+        return line + ' ' + word
+      }
+      lines.push(line)
     }
-    return word;
-  });
-  lines = lines.map(function(line) {
-    if (line.indexOf(' ') >= 0){
-      let lineLen = line.length;
-      while(lineLen < len){
-        line = line.replace(/ +/g, function(spaces) {
-          return spaces + (lineLen++ < len ? ' ' : '');
-        });
+    return word
+  })
+  lines = lines.map(line => {
+    if (line.indexOf(' ') >= 0) {
+      let lineLen = line.length
+      while (lineLen < len) {
+        line = line.replace(/ +/g, spaces => {
+          return spaces + (lineLen++ < len ? ' ' : '')
+        })
       }
     }
-    return line;
-  });
-  lastLine && lines.push(lastLine);
-  return lines.join('\n');
+    return line
+  })
+  lastLine && lines.push(lastLine)
+  return lines.join('\n')
 }
